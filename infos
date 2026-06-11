@@ -1,0 +1,17 @@
+NeoPlay
+id_jogo = inteiro
+nome = string
+gênero = string
+preço = float
+idioma = string
+desenvolvedora = string
+plataforma = string
+
+Adicionar jogo
+Editar jogo disponível
+Deletar um jogo disponível
+Listas os jogos disponíveis
+Filtrar jogos por gênero
+Filtrar jogos por idioma
+Filtrar por desenvolvedora
+Buscar jogo por nome
