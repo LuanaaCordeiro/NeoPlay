@@ -8,16 +8,49 @@ def mostrarMenu():
         3 - listar os jogos
         4 - atualizar um jogo
         5 - excluir um jogo
+        6 - filtrar jogos
         0 - sair do sistema
         Escolha uma opção: '''
     return texto
 
+
 def adicionarJogo(jogos, id_jogo, nome, genero, preco, idioma, plataforma, desenvolvedora):
-    jogo = {'id_jogo': id_jogo, 'nome' : nome, 'genero' : genero, 'preco' : preco, 
-            'idioma': idioma, 'plataforma' : plataforma, 'desenvolvedora': desenvolvedora}
+    jogo = {
+        'id_jogo': id_jogo,
+        'nome': nome,
+        'genero': genero,
+        'preco': preco,
+        'idioma': idioma,
+        'plataforma': plataforma,
+        'desenvolvedora': desenvolvedora
+    }
+
     jogos.append(jogo)
 
+
+def buscarJogo(jogos, busca):
+    if len(jogos) == 0:
+        print("Nenhum jogo cadastrado")
+        return
+
+    for jogo in jogos:
+        if busca == jogo['id_jogo']:
+            print("Id: {}".format(jogo['id_jogo']))
+            print("Nome: {}".format(jogo['nome']))
+            print("Gênero: {}".format(jogo['genero']))
+            print("Preço: {}".format(jogo['preco']))
+            print("Idioma: {}".format(jogo['idioma']))
+            print("Plataforma: {}".format(jogo['plataforma']))
+            print("Desenvolvedora: {}".format(jogo['desenvolvedora']))
+            return
+
+    print("Jogo não encontrado")
+
+
 def listarJogos(jogos):
+    if len(jogos) == 0:
+        print("Nenhum jogo cadastrado")
+        return
 
     for jogo in jogos:
         print("Id: {}".format(jogo['id_jogo']))
@@ -27,39 +60,226 @@ def listarJogos(jogos):
         print("Idioma: {}".format(jogo['idioma']))
         print("Plataforma: {}".format(jogo['plataforma']))
         print("Desenvolvedora: {}".format(jogo['desenvolvedora']))
-        print('')
+        print("")
+
+
+def atualizarJogo(jogos, busca, nome, genero, preco, idioma, plataforma, desenvolvedora):
+    if len(jogos) == 0:
+        print("Nenhum jogo cadastrado")
+        return
+
+    for jogo in jogos:
+        if busca == jogo['id_jogo']:
+            jogo['nome'] = nome
+            jogo['genero'] = genero
+            jogo['preco'] = preco
+            jogo['idioma'] = idioma
+            jogo['plataforma'] = plataforma
+            jogo['desenvolvedora'] = desenvolvedora
+            return
+
+    print("Jogo não encontrado")
+
+
+def excluirJogo(jogos, busca):
+    if len(jogos) == 0:
+        print("Nenhum jogo cadastrado")
+        return
+
+    for jogo in jogos:
+        if busca == jogo['id_jogo']:
+            jogos.remove(jogo)
+            return
+
+    print("Jogo não encontrado")
+
+
+def filtrarJogos(jogos, opcaoFiltro, valor):
+    if len(jogos) == 0:
+        print("Nenhum jogo cadastrado")
+        return
+
+    encontrou = False
+
+    for jogo in jogos:
+
+        if opcaoFiltro == 1 and jogo['genero'].lower() == valor.lower():
+            encontrou = True
+
+        elif opcaoFiltro == 2 and jogo['desenvolvedora'].lower() == valor.lower():
+            encontrou = True
+
+        elif opcaoFiltro == 3 and jogo['plataforma'].lower() == valor.lower():
+            encontrou = True
+
+        else:
+            continue
+
+        print("Id: {}".format(jogo['id_jogo']))
+        print("Nome: {}".format(jogo['nome']))
+        print("Gênero: {}".format(jogo['genero']))
+        print("Preço: {}".format(jogo['preco']))
+        print("Idioma: {}".format(jogo['idioma']))
+        print("Plataforma: {}".format(jogo['plataforma']))
+        print("Desenvolvedora: {}".format(jogo['desenvolvedora']))
+        print("")
+
+    if encontrou == False:
+        print("Nenhum jogo encontrado")
+
+
+def salvarDados(jogos):
+    dados = open("jogos.txt", 'w')
+
+    for jogo in jogos:
+        dados.write("{};".format(jogo['id_jogo']))
+        dados.write("{};".format(jogo['nome']))
+        dados.write("{};".format(jogo['genero']))
+        dados.write("{};".format(jogo['preco']))
+        dados.write("{};".format(jogo['idioma']))
+        dados.write("{};".format(jogo['plataforma']))
+        dados.write("{}\n".format(jogo['desenvolvedora']))
+
+    dados.close()
+
+
+def lerDados(jogos):
+    id_jogo = 1
+
+    try:
+        dados = open("jogos.txt", 'r')
+    except FileNotFoundError:
+        return id_jogo
+
+    linhas = dados.readlines()
+
+    for linha in linhas:
+        if linha.strip() == "":
+            continue
+
+        palavras = linha.split(';')
+
+        jogo = {}
+        jogo['id_jogo'] = int(palavras[0])
+        id_jogo = int(palavras[0])
+        jogo['nome'] = palavras[1]
+        jogo['genero'] = palavras[2]
+        jogo['preco'] = float(palavras[3])
+        jogo['idioma'] = palavras[4]
+        jogo['plataforma'] = palavras[5]
+        jogo['desenvolvedora'] = palavras[6].strip()
+
+        jogos.append(jogo)
+
+    return id_jogo + 1
 
 
 opcao = 1
 jogos = []
+
+cont = lerDados(jogos)
+
 while opcao != 0:
+
     opcao = int(input(mostrarMenu()))
-  
 
     if opcao == 1:
-        print("Adicione um jogo")
-        id_jogo = int(input("Digite o id do jogo: "))
-        nome = input("Digite o nome do jogo: " )
-        genero = input("Digite o genero do jogo: ")
+
+        print("Adicionar jogo")
+
+        nome = input("Digite o nome do jogo: ")
+        genero = input("Digite o gênero do jogo: ")
         preco = float(input("Digite o preço do jogo: "))
         idioma = input("Digite o idioma do jogo: ")
         plataforma = input("Digite a plataforma do jogo: ")
         desenvolvedora = input("Digite a desenvolvedora do jogo: ")
 
-        adicionarJogo(jogos, id_jogo,nome,genero,preco,idioma,plataforma,desenvolvedora)
-        
+        if nome == "":
+            print("Nome inválido")
+
+        elif preco < 0:
+            print("Preço inválido")
+
+        else:
+            adicionarJogo(
+                jogos,
+                cont,
+                nome,
+                genero,
+                preco,
+                idioma,
+                plataforma,
+                desenvolvedora
+            )
+
+            cont = cont + 1
+
     elif opcao == 2:
-        print("Buscar pessoa")
+
+        print("Buscar jogo")
+
+        busca = int(input("Digite o id do jogo: "))
+        buscarJogo(jogos, busca)
+
     elif opcao == 3:
-        print("Jogos listados")
+
         listarJogos(jogos)
 
     elif opcao == 4:
-        print("Atualizar uma pessoa")
+
+        print("Atualizar um jogo")
+
+        busca = int(input("Digite o id do jogo para ser atualizado: "))
+
+        nome = input("Digite o nome do jogo: ")
+        genero = input("Digite o gênero do jogo: ")
+        preco = float(input("Digite o preço do jogo: "))
+        idioma = input("Digite o idioma do jogo: ")
+        plataforma = input("Digite a plataforma do jogo: ")
+        desenvolvedora = input("Digite a desenvolvedora do jogo: ")
+
+        if nome == "":
+            print("Nome inválido")
+
+        elif preco < 0:
+            print("Preço inválido")
+
+        else:
+            atualizarJogo(
+                jogos,
+                busca,
+                nome,
+                genero,
+                preco,
+                idioma,
+                plataforma,
+                desenvolvedora
+            )
+
     elif opcao == 5:
-        print("Excluir uma pessoa")
+
+        print("Excluir um jogo")
+
+        busca = int(input("Digite o id do jogo para ser excluído: "))
+        excluirJogo(jogos, busca)
+
+    elif opcao == 6:
+
+        print("1 - Filtrar por gênero")
+        print("2 - Filtrar por desenvolvedora")
+        print("3 - Filtrar por plataforma")
+
+        opcaoFiltro = int(input("Escolha uma opção: "))
+        valor = input("Digite o valor da busca: ")
+
+        filtrarJogos(jogos, opcaoFiltro, valor)
+
     elif opcao == 0:
-        print("Sair do sistema")
+
+        salvarDados(jogos)
+        print("Saindo do Sistema")
+
     else:
-        print("Opção Inválida \nDigite novamente")
+
+        print("Opção Inválida")
 
