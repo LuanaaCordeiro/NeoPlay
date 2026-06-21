@@ -1,5 +1,5 @@
 NeoPlay
-id_jogo = inteiro
+id_jogo = inteiro --> campo automatico
 nome = string
 gênero = string
 preço = float
@@ -14,4 +14,25 @@ Listas os jogos disponíveis
 Filtrar jogos por gênero
 Filtrar jogos por idioma
 Filtrar por desenvolvedora
+Filtrar por plataforma
 Buscar jogo por nome
+
+Funcionalidades
+Adicionar um jogo: Ao escolher a opção 1, o usuário deve preencher os campos solicitados para adicionar o jogo e salvá-lo 
+no arquivo .txt. O campo nome não pode ser vazio e o preço não pode ser negativo.
+
+Buscar um jogo: Ao escolher a opção 2, o usuário deve informar ao sistema o ID do jogo que deseja buscar. Após fazer isso, 
+será mostrado o jogo relacionado ao ID.
+
+Listar os jogos: Ao escolher a opção 3, o sistema irá listar os jogos que estão cadastrados.
+
+Atualizar um jogo: Ao escolher a opção 4, o usuário deve informar ao sistema o ID do jogo que deseja atualizar. Ao informar o 
+ID, o usuário deve preencher os campos com as novas informações. Ao fazer isso, o jogo será atualizado no arquivo .txt. 
+O nome não pode ser vazio e o preço não pode ser negativo.
+
+Excluir jogo: Ao escolher a opção 5, o usuário deve informar ao sistema o ID do jogo que deseja apagar.
+
+Filtrar jogos: Ao escolher a opção 6, o usuário deve informar ao sistema qual tipo de filtragem ele deseja fazer. Ele pode filtrar
+por gênero, plataforma, desenvolvedora, idioma ou o nome do jogo. Após escolher o tipo de filtragem, o usuário deve escrever o 
+valor que ele está procurando. Após fazer isso, serão listados todos os jogos relacionados àquele valor. Ex: Ao escolher o 
+gênero “rpg”, será listado todos os jogos que possuem rpg como gênero.

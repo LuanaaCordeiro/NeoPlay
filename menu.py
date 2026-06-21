@@ -1,3 +1,4 @@
+#Menu inicial de NeoPlay
 def mostrarMenu():
     texto = '''
         **************************************************
@@ -13,7 +14,7 @@ def mostrarMenu():
         Escolha uma opção: '''
     return texto
 
-
+#Função chamada ao escolher a opção 1, com a finalidade de adicionar um jogo
 def adicionarJogo(jogos, id_jogo, nome, genero, preco, idioma, plataforma, desenvolvedora):
     jogo = {
         'id_jogo': id_jogo,
@@ -27,7 +28,7 @@ def adicionarJogo(jogos, id_jogo, nome, genero, preco, idioma, plataforma, desen
 
     jogos.append(jogo)
 
-
+#Função chamada ao escolher a opção 2, com a finalidade de buscar um jogo específico por ID
 def buscarJogo(jogos, busca):
     if len(jogos) == 0:
         print("Nenhum jogo cadastrado")
@@ -46,7 +47,7 @@ def buscarJogo(jogos, busca):
 
     print("Jogo não encontrado")
 
-
+#Função chamada ao escolher a opção 3, com a finalidade de listar todos os jogos cadastrados e seus respectivos campos
 def listarJogos(jogos):
     if len(jogos) == 0:
         print("Nenhum jogo cadastrado")
@@ -62,7 +63,7 @@ def listarJogos(jogos):
         print("Desenvolvedora: {}".format(jogo['desenvolvedora']))
         print("")
 
-
+#Função chamada ao escolher a opção 4, com a finalidade de receber um ID e atualizar os campos relacionados ao ID escolhido
 def atualizarJogo(jogos, busca, nome, genero, preco, idioma, plataforma, desenvolvedora):
     if len(jogos) == 0:
         print("Nenhum jogo cadastrado")
@@ -80,7 +81,7 @@ def atualizarJogo(jogos, busca, nome, genero, preco, idioma, plataforma, desenvo
 
     print("Jogo não encontrado")
 
-
+#Função chamada ao escolher a opção 5, com a finalidade de receber um ID e excluir o jogo relacionado a esse ID
 def excluirJogo(jogos, busca):
     if len(jogos) == 0:
         print("Nenhum jogo cadastrado")
@@ -93,7 +94,8 @@ def excluirJogo(jogos, busca):
 
     print("Jogo não encontrado")
 
-
+#Função chamada ao escolher a opção 6, com a finalidade de buscar o jogo relacionado ao filtro escolhido pelo usuário, seja
+#ele de gênero, plataforma ou desenvolvedora
 def filtrarJogos(jogos, opcaoFiltro, valor):
     if len(jogos) == 0:
         print("Nenhum jogo cadastrado")
@@ -112,6 +114,12 @@ def filtrarJogos(jogos, opcaoFiltro, valor):
         elif opcaoFiltro == 3 and jogo['plataforma'].lower() == valor.lower():
             encontrou = True
 
+        elif opcaoFiltro == 4 and jogo['idioma'].lower() == valor.lower():
+            encontrou = True
+
+        elif opcaoFiltro == 5 and jogo['nome'].lower() == valor.lower():
+            encontrou = True
+
         else:
             continue
 
@@ -127,7 +135,7 @@ def filtrarJogos(jogos, opcaoFiltro, valor):
     if encontrou == False:
         print("Nenhum jogo encontrado")
 
-
+#Função responsável por salvar os dados no arquivo .txt, garantindo que os jogos fiquem salvos localmente
 def salvarDados(jogos):
     dados = open("jogos.txt", 'w')
 
@@ -142,15 +150,10 @@ def salvarDados(jogos):
 
     dados.close()
 
-
+#Função responsável por ler os dados que estão salvos no arquivo .txt
 def lerDados(jogos):
     id_jogo = 1
-
-    try:
-        dados = open("jogos.txt", 'r')
-    except FileNotFoundError:
-        return id_jogo
-
+    dados = open("jogos.txt", 'r')
     linhas = dados.readlines()
 
     for linha in linhas:
@@ -215,18 +218,14 @@ while opcao != 0:
             cont = cont + 1
 
     elif opcao == 2:
-
         print("Buscar jogo")
-
         busca = int(input("Digite o id do jogo: "))
         buscarJogo(jogos, busca)
 
     elif opcao == 3:
-
         listarJogos(jogos)
 
     elif opcao == 4:
-
         print("Atualizar um jogo")
 
         busca = int(input("Digite o id do jogo para ser atualizado: "))
@@ -268,6 +267,8 @@ while opcao != 0:
         print("1 - Filtrar por gênero")
         print("2 - Filtrar por desenvolvedora")
         print("3 - Filtrar por plataforma")
+        print("4 - Filtrar por idioma")
+        print("5 - Filtrar por nome")
 
         opcaoFiltro = int(input("Escolha uma opção: "))
         valor = input("Digite o valor da busca: ")
@@ -280,6 +281,5 @@ while opcao != 0:
         print("Saindo do Sistema")
 
     else:
-
-        print("Opção Inválida")
+         print("Opção Inválida \nDigite novamente")
 

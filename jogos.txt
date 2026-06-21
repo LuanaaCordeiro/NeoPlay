@@ -1,0 +1,4 @@
+2;Undertale;rpg;10.0;ingles;pc;tobyfox
+3;deltarune;rpg;70.0;ingles;pc;tobyfox
+4;omori;rpg;10.0;portugues;pc;omocat
+5;lol;mmorpg;0.0;portugues;pc;riotgames
